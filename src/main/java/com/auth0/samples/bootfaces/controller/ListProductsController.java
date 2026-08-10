@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Scope (value = "session")
-@Component (value = "listProducts")
+@Scope(value = "session")
+@Component(value = "listProducts")
 @ELBeanName(value = "listProducts")
 @Join(path = "/", to = "/product/product-list.jsf")
 public class ListProductsController {
@@ -35,7 +35,7 @@ public class ListProductsController {
 	}
 
 	public String delete(Product product) {
-		productRepository.delete(product.getId());
+		productRepository.deleteById(product.getId());
 		loadData();
 		return null;
 	}

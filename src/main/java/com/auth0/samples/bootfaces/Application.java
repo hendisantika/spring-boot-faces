@@ -1,20 +1,18 @@
 package com.auth0.samples.bootfaces;
 
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.DispatcherType;
 import org.ocpsoft.rewrite.servlet.RewriteFilter;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.DispatcherType;
 import java.util.EnumSet;
 
-@EnableAutoConfiguration
-@ComponentScan({"com.auth0.samples.bootfaces"})
+@SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
@@ -22,14 +20,16 @@ public class Application extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public ServletRegistrationBean servletRegistrationBean() {
-		FacesServlet servlet = new FacesServlet();
-		return new ServletRegistrationBean(servlet, "*.jsf");
+	public ServletRegistrationBean<FacesServlet> facesServletRegistration() {
+		ServletRegistrationBean<FacesServlet> registration =
+				new ServletRegistrationBean<>(new FacesServlet(), "*.jsf");
+		registration.setLoadOnStartup(1);
+		return registration;
 	}
 
 	@Bean
-	public FilterRegistrationBean rewriteFilter() {
-		FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
+	public FilterRegistrationBean<RewriteFilter> rewriteFilter() {
+		FilterRegistrationBean<RewriteFilter> rwFilter = new FilterRegistrationBean<>(new RewriteFilter());
 		rwFilter.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST,
 				DispatcherType.ASYNC, DispatcherType.ERROR));
 		rwFilter.addUrlPatterns("/*");
