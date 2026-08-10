@@ -139,9 +139,12 @@
 		</dependency>
 	</dependencies>
 
-	<!-- Package as an executable jar -->
 	<build>
-		<!-- Rewrite only scans for WEB-INF/classes folder -->
+		<!-- Rewrite only scans for a WEB-INF/classes folder, so the compiler has
+		     to write there for the @Join annotations to be picked up. The side
+		     effect is that the Facelets views are only reachable through the
+		     exploded src/main/webapp directory, which is why the application is
+		     started with spring-boot:run rather than from the packaged jar. -->
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
