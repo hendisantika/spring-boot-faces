@@ -1,0 +1,24 @@
+/*
+ * Page layout. This replaces PrimeFaces' legacy ui-g grid, which is still
+ * shipped but superseded by PrimeFlex — and PrimeFlex is no longer bundled
+ * with PrimeFaces, so the layout is kept self-contained here instead.
+ */
+body {
+	margin: 0;
+	background: #f8f9fa;
+}
+
+.layout-container {
+	box-sizing: border-box;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 1.5rem 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* The toolbar buttons are anchors, so they need the gap set on the facet */
+.layout-container .ui-toolbar-group-left > * + * {
+	margin-left: .5rem;
+}
