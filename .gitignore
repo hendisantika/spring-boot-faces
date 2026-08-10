@@ -1,3 +1,9 @@
 .idea/
 *.iml
 /target/
+
+# Maven writes the build output here so that Rewrite can scan it (see pom.xml)
+/src/main/webapp/WEB-INF/classes/
+
+# HSQLDB file database, recreated from the Flyway migrations on first start
+/data/
